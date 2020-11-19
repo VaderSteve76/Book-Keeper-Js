@@ -86,3 +86,10 @@ a:hover, a:active {
   margin-right: 5px;
   vertical-align: sub;
 }
+
+/* Media Query: Large smartphone (vertical */
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+}
