@@ -30,6 +30,38 @@ function validate(nameValue, urlValue) {
   return true;
 }
 
+// Build bookmarks
+function buildBookmarks() {
+  // build items
+  bookmarks.forEach((bookmark) => {
+    const { name, url } = bookmark;
+    // item
+    const item = document.createElement('div');
+    item.classList.add('item');
+    // close icon
+    const closeIcon = document.createElement('i');
+    closeIcon.classList.add('fas', 'fa-trash');
+    closeIcon.setAttribute('title', 'Delete Bookmark');
+    closeIcon.setAttribute('onclick', `eleteBookmark('${url}')`);
+    // favicon / link container
+    const linkInfo = document.createElement('div');
+    linkInfo.classList.add('name');
+    // favicon
+    const favicon = document.createElement('img');
+    favicon.setAttribute('src', `https://s2.googleusercontent.com/s2/favicons?domain=${url}`);
+		favicon.setAttribute('alt', 'Favicon');
+		// Link
+		const link = document.createElement('a');
+		link.setAttribute('href', `${url}`);
+		link.setAttribute('target', '_blank');
+		link.textContent = name;
+		// Append to bookmarks container
+		linkInfo.append(favicon, link);
+		item.append(closeIcon, linkInfo);
+		bookmarksContainer.appendChild(item);
+  });
+}
+
 // Fetch bookmarks from localstorage
 function fetchBookmarks() {
   // get bookmarks from localstorage if available
@@ -45,7 +77,7 @@ function fetchBookmarks() {
     ];
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   }
-  console.log(bookmarks);
+  buildBookmarks();
 }
 
 // Submit data
